@@ -1,0 +1,22 @@
+<html>
+  <head>
+    <script
+      language="javascript"
+      type="text/javascript"
+      src="http://d3js.org/d3.v3.min.js"
+    ></script>
+
+    <script type="text/javascript">
+      function draw() {
+        d3.select("h1#target").text("Añadiendo contenido");
+      }
+
+      function test() {
+        d3.select("#change").text("Texto de ejemplo");
+      }
+    </script>
+  </head>
+  <body onload="test()">
+    <h1 id="change"></h1>
+  </body>
+</html>
