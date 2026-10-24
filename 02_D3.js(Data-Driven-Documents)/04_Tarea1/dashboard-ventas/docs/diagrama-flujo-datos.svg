@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 640" width="1120" height="640" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="flecha" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#475569"/>
+    </marker>
+    <marker id="flecha-evento" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#ea580c"/>
+    </marker>
+  </defs>
+
+  <rect width="1120" height="640" fill="#ffffff"/>
+
+  <!-- Título -->
+  <text x="30" y="38" font-size="20" font-weight="700" fill="#0f172a">Flujo de datos del dashboard de ventas</text>
+  <text x="30" y="62" font-size="13" fill="#64748b">Node.js + Express · módulos ES en public/js · Google Charts y D3.js v7 · layout con Bootstrap 5</text>
+
+  <!-- Actualización de datos (arriba izquierda) -->
+  <rect x="30" y="90" width="190" height="104" rx="10" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="125" y="114" font-size="14" font-weight="700" fill="#0f172a" text-anchor="middle">Cambio de datos</text>
+  <text x="125" y="137" font-size="12" fill="#334155" text-anchor="middle">Edición manual del JSON o</text>
+  <text x="125" y="158" font-size="11.5" fill="#334155" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace">npm run datos:original</text>
+  <text x="125" y="177" font-size="11.5" fill="#334155" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace">npm run datos:actualizado</text>
+  <line x1="125" y1="194" x2="125" y2="238" stroke="#475569" stroke-width="1.6" marker-end="url(#flecha)"/>
+
+  <!-- Disparadores (arriba derecha) -->
+  <rect x="860" y="90" width="230" height="104" rx="10" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="975" y="114" font-size="14" font-weight="700" fill="#0f172a" text-anchor="middle">Disparadores</text>
+  <text x="975" y="138" font-size="12" fill="#334155" text-anchor="middle">Carga inicial de la página</text>
+  <text x="975" y="158" font-size="12" fill="#334155" text-anchor="middle">Botón «Actualizar»</text>
+  <text x="975" y="178" font-size="12" fill="#334155" text-anchor="middle">Temporizador cada 30 s (opcional)</text>
+  <line x1="975" y1="194" x2="975" y2="238" stroke="#475569" stroke-width="1.6" marker-end="url(#flecha)"/>
+
+  <!-- Fila principal: fuente → servidor → datos → orquestación -->
+  <rect x="30" y="240" width="190" height="110" rx="10" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="125" y="268" font-size="15" font-weight="700" fill="#0f172a" text-anchor="middle">ventas.json</text>
+  <text x="125" y="290" font-size="12" fill="#334155" text-anchor="middle">public/ · fuente de datos</text>
+  <text x="125" y="310" font-size="12" fill="#334155" text-anchor="middle">producto · mes · ventas</text>
+  <text x="125" y="328" font-size="12" fill="#334155" text-anchor="middle">ingresos · precio</text>
+
+  <rect x="290" y="240" width="190" height="110" rx="10" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+  <text x="385" y="268" font-size="15" font-weight="700" fill="#0f172a" text-anchor="middle">server.js</text>
+  <text x="385" y="290" font-size="12" fill="#334155" text-anchor="middle">Express · puerto 3000</text>
+  <text x="385" y="310" font-size="12" fill="#334155" text-anchor="middle">Sirve la carpeta public/</text>
+  <text x="385" y="328" font-size="12" fill="#334155" text-anchor="middle">Cache-Control: no-store</text>
+
+  <rect x="560" y="240" width="220" height="110" rx="10" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="670" y="268" font-size="15" font-weight="700" fill="#0f172a" text-anchor="middle">datos.js</text>
+  <text x="670" y="290" font-size="12" fill="#334155" text-anchor="middle">cargarDatos(): fetch sin caché</text>
+  <text x="670" y="310" font-size="12" fill="#334155" text-anchor="middle">Convierte a número y valida</text>
+  <text x="670" y="328" font-size="12" fill="#334155" text-anchor="middle">ingresos = ventas × precio</text>
+
+  <rect x="860" y="240" width="230" height="110" rx="10" fill="#ede9fe" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="975" y="268" font-size="15" font-weight="700" fill="#0f172a" text-anchor="middle">main.js · actualizar()</text>
+  <text x="975" y="290" font-size="12" fill="#334155" text-anchor="middle">Pide los datos una vez y</text>
+  <text x="975" y="310" font-size="12" fill="#334155" text-anchor="middle">redibuja las 3 vistas a la vez,</text>
+  <text x="975" y="328" font-size="12" fill="#334155" text-anchor="middle">sin recargar la página</text>
+
+  <line x1="220" y1="295" x2="288" y2="295" stroke="#475569" stroke-width="1.6" marker-end="url(#flecha)"/>
+  <text x="254" y="285" font-size="11" fill="#64748b" text-anchor="middle">archivo</text>
+  <line x1="480" y1="295" x2="558" y2="295" stroke="#475569" stroke-width="1.6" marker-end="url(#flecha)"/>
+  <text x="519" y="285" font-size="11" fill="#64748b" text-anchor="middle">HTTP GET</text>
+  <line x1="780" y1="295" x2="858" y2="295" stroke="#475569" stroke-width="1.6" marker-end="url(#flecha)"/>
+  <text x="819" y="285" font-size="11" fill="#64748b" text-anchor="middle">registros[]</text>
+
+  <!-- Bus hacia las vistas -->
+  <line x1="975" y1="350" x2="975" y2="400" stroke="#475569" stroke-width="1.6"/>
+  <line x1="420" y1="400" x2="975" y2="400" stroke="#475569" stroke-width="1.6"/>
+  <line x1="420" y1="400" x2="420" y2="438" stroke="#475569" stroke-width="1.6" marker-end="url(#flecha)"/>
+  <line x1="690" y1="400" x2="690" y2="438" stroke="#475569" stroke-width="1.6" marker-end="url(#flecha)"/>
+  <line x1="975" y1="400" x2="975" y2="438" stroke="#475569" stroke-width="1.6" marker-end="url(#flecha)"/>
+
+  <!-- Vistas -->
+  <rect x="310" y="440" width="220" height="100" rx="10" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+  <text x="420" y="466" font-size="15" font-weight="700" fill="#0f172a" text-anchor="middle">kpis.js</text>
+  <text x="420" y="488" font-size="12" fill="#334155" text-anchor="middle">Indicadores del último mes</text>
+  <text x="420" y="507" font-size="12" fill="#334155" text-anchor="middle">Variación vs. mes anterior</text>
+  <text x="420" y="526" font-size="12" fill="#334155" text-anchor="middle">Cards de Bootstrap</text>
+
+  <rect x="570" y="440" width="240" height="100" rx="10" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+  <text x="690" y="466" font-size="15" font-weight="700" fill="#0f172a" text-anchor="middle">graficoColumnas.js</text>
+  <text x="690" y="488" font-size="12" fill="#334155" text-anchor="middle">Google Charts · ColumnChart</text>
+  <text x="690" y="507" font-size="12" fill="#334155" text-anchor="middle">X = mes · Y = ventas</text>
+  <text x="690" y="526" font-size="12" fill="#334155" text-anchor="middle">Una columna por producto</text>
+
+  <rect x="850" y="440" width="250" height="100" rx="10" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+  <text x="975" y="466" font-size="15" font-weight="700" fill="#0f172a" text-anchor="middle">graficoBurbujas.js</text>
+  <text x="975" y="488" font-size="12" fill="#334155" text-anchor="middle">D3.js · gráfico de burbujas</text>
+  <text x="975" y="507" font-size="12" fill="#334155" text-anchor="middle">Escalas + data join con clave</text>
+  <text x="975" y="526" font-size="12" fill="#334155" text-anchor="middle">Transiciones · tooltip · clic</text>
+
+  <!-- Eventos que redibujan una sola vista -->
+  <rect x="580" y="575" width="220" height="34" rx="17" fill="#fff7ed" stroke="#fb923c" stroke-width="1.5"/>
+  <text x="690" y="597" font-size="12" fill="#9a3412" text-anchor="middle">Cambio de tamaño de ventana</text>
+  <line x1="690" y1="575" x2="690" y2="542" stroke="#ea580c" stroke-width="1.6" marker-end="url(#flecha-evento)"/>
+
+  <rect x="865" y="575" width="220" height="34" rx="17" fill="#fff7ed" stroke="#fb923c" stroke-width="1.5"/>
+  <text x="975" y="597" font-size="12" fill="#9a3412" text-anchor="middle">Selector «Eje Y» (ventas / ingresos)</text>
+  <line x1="975" y1="575" x2="975" y2="542" stroke="#ea580c" stroke-width="1.6" marker-end="url(#flecha-evento)"/>
+
+  <!-- Configuración compartida -->
+  <rect x="30" y="440" width="240" height="100" rx="10" fill="#f9fafb" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <text x="150" y="466" font-size="15" font-weight="700" fill="#0f172a" text-anchor="middle">config.js</text>
+  <text x="150" y="488" font-size="12" fill="#334155" text-anchor="middle">Compartido por todos los módulos:</text>
+  <text x="150" y="507" font-size="12" fill="#334155" text-anchor="middle">orden de meses · color por producto</text>
+  <text x="150" y="526" font-size="12" fill="#334155" text-anchor="middle">formatos de número y moneda</text>
+
+  <!-- Leyenda -->
+  <line x1="30" y1="592" x2="62" y2="592" stroke="#475569" stroke-width="1.6" marker-end="url(#flecha)"/>
+  <text x="70" y="596" font-size="11.5" fill="#475569">flujo de datos</text>
+  <line x1="170" y1="592" x2="202" y2="592" stroke="#ea580c" stroke-width="1.6" marker-end="url(#flecha-evento)"/>
+  <text x="210" y="596" font-size="11.5" fill="#475569">evento que redibuja una sola vista</text>
+</svg>
