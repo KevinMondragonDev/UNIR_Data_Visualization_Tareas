@@ -1,0 +1,49 @@
+/* El layout, las tarjetas y los controles vienen de Bootstrap 5.
+   Aquí solo quedan los estilos que Bootstrap no cubre: SVG de D3, tooltip y leyenda. */
+
+/* ---------- SVG del gráfico D3 ---------- */
+#grafico-burbujas svg { width: 100%; height: auto; display: block; margin-top: 8px; }
+
+.eje text { font-size: 13px; fill: var(--bs-secondary-color); }
+.eje path, .eje line { stroke: var(--bs-border-color); }
+.cuadricula line { stroke: var(--bs-border-color); stroke-dasharray: 3 3; }
+.cuadricula path { display: none; }
+.titulo-eje { font-size: 13px; fill: var(--bs-secondary-color); }
+
+.burbuja { stroke: #fff; stroke-width: 2; cursor: pointer; transition: opacity 0.25s; }
+.burbuja.atenuada { opacity: 0.15; }
+.etiqueta-valor { font-size: 12px; font-weight: 600; fill: var(--bs-body-color); pointer-events: none; text-anchor: middle; }
+
+/* El SVG usa viewBox de 640 px de ancho: en pantallas chicas se reduce a la mitad,
+   así que el texto se agranda en unidades del viewBox para seguir siendo legible. */
+@media (max-width: 575.98px) {
+  .eje text, .titulo-eje { font-size: 20px; }
+  .etiqueta-valor { font-size: 20px; }
+}
+
+/* ---------- Tooltip ---------- */
+/* Nombre propio para no chocar con la clase .tooltip de Bootstrap. */
+.tooltip-grafico {
+  position: fixed;
+  pointer-events: none;
+  background: #111827;
+  color: #fff;
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1080;
+}
+.tooltip-grafico strong { display: block; margin-bottom: 2px; }
+
+/* ---------- Leyenda (botones generados con D3) ---------- */
+.leyenda { display: flex; flex-wrap: wrap; gap: 8px 14px; margin-top: 8px; font-size: 0.85rem; }
+.leyenda button {
+  display: flex; align-items: center; gap: 6px;
+  background: none; border: 1px solid transparent; border-radius: 999px;
+  padding: 4px 10px; cursor: pointer; font: inherit; color: var(--bs-body-color);
+}
+.leyenda button:hover { border-color: var(--bs-border-color); }
+.leyenda button.activo { border-color: var(--bs-secondary-color); }
+.leyenda .punto { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }

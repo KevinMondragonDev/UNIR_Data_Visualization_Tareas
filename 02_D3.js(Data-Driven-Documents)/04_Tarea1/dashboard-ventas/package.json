@@ -1,0 +1,17 @@
+{
+  "name": "dashboard-ventas",
+  "version": "1.0.0",
+  "description": "Tarea 1 UNIR: dashboard interactivo con Google Charts y D3.js alimentado por un JSON",
+  "main": "server.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server.js",
+    "datos:original": "node scripts/usar-datos.js original",
+    "datos:actualizado": "node scripts/usar-datos.js actualizado"
+  },
+  "license": "UNLICENSED",
+  "private": true,
+  "dependencies": {
+    "express": "^5.3.0"
+  }
+}
