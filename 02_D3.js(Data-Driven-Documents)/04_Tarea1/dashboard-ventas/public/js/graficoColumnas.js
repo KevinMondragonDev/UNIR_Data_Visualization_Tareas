@@ -1,5 +1,5 @@
 // Visualización básica con Google Charts: columnas de ventas por mes y producto.
-import { color } from "./config.js";
+import { color, TEMA } from "./config.js";
 import { listaMeses, listaProductos } from "./datos.js";
 
 let grafico = null;
@@ -20,16 +20,28 @@ export function dibujarColumnas(datos) {
   const estrecho = document.getElementById("grafico-columnas").offsetWidth < 480;
   dibujarLeyendaHtml(productos, estrecho);
 
+  const textoEje = { color: TEMA.tintaSuave, fontSize: 12 };
+  const tituloEje = { color: TEMA.tintaSuave, fontSize: 11, italic: false };
+
   const opciones = {
     colors: productos.map((p) => color(p)),
-    legend: estrecho ? { position: "none" } : { position: "top", alignment: "center" },
-    hAxis: { title: "Mes" },
-    vAxis: { title: estrecho ? null : "Unidades vendidas", minValue: 0, gridlines: { color: "#e4e7eb" } },
+    legend: estrecho ? { position: "none" } : { position: "top", alignment: "start", textStyle: { color: TEMA.tinta, fontSize: 13 } },
+    hAxis: { title: "Mes", textStyle: textoEje, titleTextStyle: tituloEje },
+    vAxis: {
+      title: estrecho ? null : "Unidades vendidas",
+      minValue: 0,
+      textStyle: textoEje,
+      titleTextStyle: tituloEje,
+      gridlines: { color: TEMA.filete },
+      minorGridlines: { count: 0 },
+      baselineColor: TEMA.tinta,
+    },
     chartArea: { left: estrecho ? 36 : 64, right: 16, top: estrecho ? 16 : 40, bottom: 56 },
-    bar: { groupWidth: "70%" },
+    bar: { groupWidth: "62%" },
     animation: { startup: true, duration: 800, easing: "out" },
-    fontName: "system-ui",
+    fontName: TEMA.sans,
     backgroundColor: "transparent",
+    tooltip: { textStyle: { color: TEMA.tinta } },
   };
 
   if (!grafico) {

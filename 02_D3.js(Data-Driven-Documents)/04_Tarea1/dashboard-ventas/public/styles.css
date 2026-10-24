@@ -1,18 +1,136 @@
-/* El layout, las tarjetas y los controles vienen de Bootstrap 5.
-   Aquí solo quedan los estilos que Bootstrap no cubre: SVG de D3, tooltip y leyenda. */
+/* Estilo editorial de informe impreso: papel cálido, tinta, filetes finos,
+   títulos en serif y cifras en monoespaciada. Bootstrap aporta el grid y los
+   controles; aquí se sobrescriben sus variables y se define todo lo visual. */
+
+:root {
+  --papel: #f2ede3;
+  --papel-claro: #faf7f1;
+  --tinta: #1c1b19;
+  --tinta-suave: #5e5a52;
+  --filete: #cfc6b4;
+  --terracota: #a8431f;
+  --oliva: #3f6e4a;
+
+  --serif: "Fraunces", Georgia, "Times New Roman", serif;
+  --sans: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+
+  --bs-body-bg: var(--papel);
+  --bs-body-color: var(--tinta);
+  --bs-body-font-family: var(--sans);
+  --bs-secondary-color: var(--tinta-suave);
+  --bs-border-color: var(--filete);
+  --bs-success-rgb: 63, 110, 74;
+  --bs-danger-rgb: 168, 67, 31;
+  --bs-code-color: var(--terracota);
+}
+
+body { background: var(--papel); }
+
+/* ---------- Cabecera ---------- */
+.cabecera { border-bottom: 1px solid var(--tinta); padding-bottom: 14px; margin-bottom: 0; }
+
+.antetitulo {
+  display: flex; justify-content: space-between; flex-wrap: wrap; gap: 4px 16px;
+  font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--terracota);
+  border-top: 3px solid var(--tinta);
+  border-bottom: 1px solid var(--tinta);
+  padding: 6px 0; margin-bottom: 18px;
+}
+
+.titulo {
+  font-family: var(--serif); font-weight: 700; font-size: clamp(2rem, 5vw, 3.2rem);
+  line-height: 1; letter-spacing: -0.02em; margin: 0;
+  font-variation-settings: "opsz" 144;
+}
+
+.bajada { font-family: var(--serif); font-size: 1.05rem; color: var(--tinta-suave); margin: 12px 0 2px; }
+.bajada code { font-family: var(--mono); font-size: 0.9em; }
+
+.estado { font-family: var(--mono); font-size: 0.72rem; color: var(--tinta-suave); margin: 6px 0 0; }
+
+/* Interruptor y botón */
+.controles .form-check-label { font-family: var(--mono); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--tinta-suave); }
+.form-switch .form-check-input { border-color: var(--tinta); background-color: transparent; cursor: pointer; }
+.form-switch .form-check-input:focus { box-shadow: none; border-color: var(--tinta); --bs-form-switch-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%231c1b19'/%3e%3c/svg%3e"); }
+.form-switch .form-check-input:not(:checked) { --bs-form-switch-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%231c1b19'/%3e%3c/svg%3e"); }
+.form-switch .form-check-input:checked { background-color: var(--tinta); border-color: var(--tinta); }
+
+.btn-tinta {
+  font-family: var(--mono); font-size: 0.8rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.12em;
+  background: var(--tinta); color: var(--papel-claro);
+  border: 1px solid var(--tinta); border-radius: 0; padding: 10px 20px;
+  box-shadow: 3px 3px 0 var(--terracota);
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+.btn-tinta:hover { background: var(--tinta); color: var(--papel-claro); }
+.btn-tinta:active { transform: translate(3px, 3px); box-shadow: 0 0 0 var(--terracota); }
+.btn-tinta:disabled { background: var(--tinta-suave); border-color: var(--tinta-suave); color: var(--papel-claro); opacity: 1; }
+.btn-tinta:focus-visible { outline: 2px solid var(--terracota); outline-offset: 3px; box-shadow: 3px 3px 0 var(--terracota); }
+
+/* ---------- Franja de indicadores ---------- */
+.franja-kpis {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  border-bottom: 1px solid var(--tinta);
+  margin-bottom: 32px;
+}
+.kpi { padding: 18px 20px 16px; }
+.kpi:first-child { padding-left: 0; }
+.kpi + .kpi { border-left: 1px solid var(--filete); }
+.kpi .etiqueta { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--tinta-suave); }
+.kpi .valor {
+  font-family: var(--serif); font-weight: 500; font-size: clamp(1.5rem, 3vw, 2.2rem);
+  line-height: 1.15; margin-top: 6px; font-variant-numeric: lining-nums tabular-nums;
+}
+.kpi .detalle { font-family: var(--mono); font-size: 0.75rem; margin-top: 4px; }
+
+@media (max-width: 991.98px) {
+  .franja-kpis { grid-template-columns: repeat(2, 1fr); }
+  .kpi:nth-child(odd) { padding-left: 0; border-left: 0; }
+  .kpi:nth-child(n + 3) { border-top: 1px solid var(--filete); }
+}
+@media (max-width: 575.98px) {
+  .kpi { padding: 14px 12px 12px; }
+  .kpi .valor { font-size: 1.3rem; }
+}
+
+/* ---------- Paneles de gráficos ---------- */
+.panel { border-top: 2px solid var(--tinta); padding-top: 14px; height: 100%; }
+.panel-cabecera { display: flex; align-items: flex-start; gap: 6px 14px; flex-wrap: wrap; margin-bottom: 8px; }
+.panel-cabecera > div:not(.selector-metrica) { flex: 1 1 0; min-width: 0; }
+.panel-cabecera .selector-metrica { flex-basis: 100%; padding-left: 32px; }
+@media (min-width: 1200px) { .panel-cabecera .selector-metrica { flex-basis: auto; padding-left: 0; } }
+.panel-cabecera .numero { font-family: var(--mono); font-size: 0.8rem; color: var(--terracota); padding-top: 4px; }
+.panel-cabecera h2 { font-family: var(--serif); font-weight: 700; font-size: 1.35rem; margin: 0; letter-spacing: -0.01em; }
+.nota { font-family: var(--mono); font-size: 0.7rem; color: var(--tinta-suave); margin: 4px 0 0; }
+
+.selector-metrica .form-label { font-family: var(--mono); font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--tinta-suave); margin-bottom: 2px; }
+.selector-metrica .form-select {
+  font-family: var(--sans); background-color: transparent; border: 0; border-bottom: 1px solid var(--tinta);
+  border-radius: 0; padding-left: 0; min-width: 170px;
+}
+.selector-metrica .form-select:focus { box-shadow: none; border-color: var(--terracota); }
+
+.pie {
+  display: flex; justify-content: space-between; flex-wrap: wrap; gap: 4px 16px;
+  font-family: var(--mono); font-size: 0.68rem; color: var(--tinta-suave);
+  border-top: 1px solid var(--tinta); margin-top: 36px; padding-top: 8px;
+}
 
 /* ---------- SVG del gráfico D3 ---------- */
 #grafico-burbujas svg { width: 100%; height: auto; display: block; margin-top: 8px; }
 
-.eje text { font-size: 13px; fill: var(--bs-secondary-color); }
-.eje path, .eje line { stroke: var(--bs-border-color); }
-.cuadricula line { stroke: var(--bs-border-color); stroke-dasharray: 3 3; }
+.eje text { font-family: var(--mono); font-size: 12px; fill: var(--tinta-suave); }
+.eje path { stroke: var(--tinta); }
+.eje line { stroke: var(--tinta); }
+.cuadricula line { stroke: var(--filete); stroke-dasharray: 1 3; }
 .cuadricula path { display: none; }
-.titulo-eje { font-size: 13px; fill: var(--bs-secondary-color); }
+.titulo-eje { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; fill: var(--tinta-suave); }
 
-.burbuja { stroke: #fff; stroke-width: 2; cursor: pointer; transition: opacity 0.25s; }
-.burbuja.atenuada { opacity: 0.15; }
-.etiqueta-valor { font-size: 12px; font-weight: 600; fill: var(--bs-body-color); pointer-events: none; text-anchor: middle; }
+.burbuja { stroke: var(--papel); stroke-width: 2; fill-opacity: 0.92; cursor: pointer; transition: opacity 0.25s; }
+.burbuja.atenuada { opacity: 0.12; }
+.etiqueta-valor { font-family: var(--mono); font-size: 12px; font-weight: 500; fill: var(--tinta); pointer-events: none; text-anchor: middle; }
 
 /* El SVG usa viewBox de 640 px de ancho: en pantallas chicas se reduce a la mitad,
    así que el texto se agranda en unidades del viewBox para seguir siendo legible. */
@@ -26,24 +144,26 @@
 .tooltip-grafico {
   position: fixed;
   pointer-events: none;
-  background: #111827;
-  color: #fff;
+  background: var(--papel-claro);
+  color: var(--tinta);
+  border: 1px solid var(--tinta);
+  box-shadow: 4px 4px 0 var(--tinta);
   padding: 10px 12px;
-  border-radius: 8px;
-  font-size: 0.8rem;
-  line-height: 1.5;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+  font-family: var(--mono);
+  font-size: 0.76rem;
+  line-height: 1.6;
+  white-space: nowrap;
   z-index: 1080;
 }
-.tooltip-grafico strong { display: block; margin-bottom: 2px; }
+.tooltip-grafico strong { display: block; font-family: var(--serif); font-size: 0.95rem; font-weight: 700; margin-bottom: 4px; border-bottom: 1px solid var(--filete); padding-bottom: 4px; }
 
-/* ---------- Leyenda (botones generados con D3) ---------- */
-.leyenda { display: flex; flex-wrap: wrap; gap: 8px 14px; margin-top: 8px; font-size: 0.85rem; }
+/* ---------- Leyendas (botones generados con D3) ---------- */
+.leyenda { display: flex; flex-wrap: wrap; gap: 6px 18px; margin-top: 10px; font-size: 0.85rem; }
 .leyenda button {
-  display: flex; align-items: center; gap: 6px;
-  background: none; border: 1px solid transparent; border-radius: 999px;
-  padding: 4px 10px; cursor: pointer; font: inherit; color: var(--bs-body-color);
+  display: flex; align-items: center; gap: 8px;
+  background: none; border: 0; border-bottom: 1px solid transparent; border-radius: 0;
+  padding: 2px 0; cursor: pointer; font: inherit; color: var(--tinta);
 }
-.leyenda button:hover { border-color: var(--bs-border-color); }
-.leyenda button.activo { border-color: var(--bs-secondary-color); }
-.leyenda .punto { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
+.leyenda button:hover { border-bottom-color: var(--tinta-suave); }
+.leyenda button.activo { border-bottom-color: var(--tinta); font-weight: 600; }
+.leyenda .punto { width: 11px; height: 11px; display: inline-block; }

@@ -1,7 +1,7 @@
 // Visualización multidimensional con D3.js: gráfico de burbujas.
 // X = mes (y dentro de cada mes, un hueco por producto), Y = métrica elegida,
 // color = producto, tamaño (área) = la otra métrica.
-import { color, numero, moneda, METRICAS } from "./config.js";
+import { color, numero, moneda, METRICAS, TEMA } from "./config.js";
 import { listaMeses, listaProductos } from "./datos.js";
 
 const ANCHO = 640;
@@ -127,7 +127,7 @@ function aplicarResaltado() {
 }
 
 function mostrarTooltip(event, d) {
-  d3.select(event.currentTarget).attr("stroke", "#111827");
+  d3.select(event.currentTarget).attr("stroke", TEMA.tinta);
   tooltip.innerHTML = `
     <strong>${d.producto} · ${d.mes}</strong>
     Ventas: ${numero.format(d.ventas)} u.<br>

@@ -10,7 +10,16 @@ export const MESES_ORDEN = [
   "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre",
 ];
 
-const PALETA = ["#2563eb", "#f97316", "#10b981", "#a855f7", "#e11d48", "#0891b2"];
+// Paleta editorial (petróleo, ocre, salvia, ciruela, índigo, siena) sobre fondo papel.
+const PALETA = ["#12506b", "#c8902e", "#6e8b6b", "#8c4a5c", "#4b4f8a", "#a0522d"];
+
+// Tinta, texto secundario y filetes del tema (deben coincidir con styles.css).
+export const TEMA = {
+  tinta: "#1c1b19",
+  tintaSuave: "#5e5a52",
+  filete: "#ddd5c5",
+  sans: "IBM Plex Sans",
+};
 
 // Mismo color para cada producto en Google Charts, D3 y las leyendas.
 export const color = d3.scaleOrdinal(PALETA);

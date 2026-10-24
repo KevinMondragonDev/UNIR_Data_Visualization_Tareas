@@ -74,7 +74,7 @@
   <text x="420" y="466" font-size="15" font-weight="700" fill="#0f172a" text-anchor="middle">kpis.js</text>
   <text x="420" y="488" font-size="12" fill="#334155" text-anchor="middle">Indicadores del último mes</text>
   <text x="420" y="507" font-size="12" fill="#334155" text-anchor="middle">Variación vs. mes anterior</text>
-  <text x="420" y="526" font-size="12" fill="#334155" text-anchor="middle">Cards de Bootstrap</text>
+  <text x="420" y="526" font-size="12" fill="#334155" text-anchor="middle">Franja con filetes</text>
 
   <rect x="570" y="440" width="240" height="100" rx="10" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
   <text x="690" y="466" font-size="15" font-weight="700" fill="#0f172a" text-anchor="middle">graficoColumnas.js</text>
