@@ -24,7 +24,7 @@ El layout usa **Bootstrap 5.3** (por CDN). Las clases principales son:
 Lo que Bootstrap no resuelve se hace en el propio código:
 
 - **Gráfico de D3:** usa un `viewBox`, así que se escala al ancho de su tarjeta. En pantallas de menos de 576 px, `styles.css` agranda el texto del SVG para que siga siendo legible.
-- **Gráfico de Google:** no se ajusta solo. `app.js` lo vuelve a dibujar cuando cambia el tamaño de la ventana.
+- **Gráfico de Google:** no se ajusta solo. `main.js` lo vuelve a dibujar cuando cambia el tamaño de la ventana.
 - **Leyenda de Google en móvil:** cuando el gráfico mide menos de 480 px de ancho, Google recorta los nombres ("Smart…"). En ese caso se oculta su leyenda y se muestra una leyenda HTML con los mismos colores.
 
 Para el informe conviene incluir dos capturas, una en escritorio y otra en ancho de móvil (DevTools → *Toggle device toolbar*).
@@ -71,17 +71,44 @@ dashboard-ventas/
 ├── datos/
 │   ├── ventas_original.json     los 6 registros de la actividad (ene–feb)
 │   └── ventas_actualizado.json  + marzo, con ventas, ingresos y precio coherentes
+├── docs/
+│   └── diagrama-flujo-datos.svg / .png   diagrama para el informe
 └── public/
     ├── index.html          layout con Bootstrap 5: cabecera, botón, KPIs, 2 cards de gráficos
     ├── styles.css          solo estilos SVG de D3, tooltip y leyenda
-    ├── app.js              lógica: carga → KPIs → Google Charts → D3 → actualización
-    └── ventas.json         fuente de datos que lee el dashboard
+    ├── ventas.json         fuente de datos que lee el dashboard
+    └── js/                 módulos ES, uno por responsabilidad
+        ├── main.js             punto de entrada: actualizar(), botón, temporizador, resize
+        ├── config.js           meses, color por producto, formatos de número
+        ├── datos.js            capa de datos: fetch sin caché, validación, meses/productos
+        ├── kpis.js             indicadores
+        ├── graficoColumnas.js  Google Charts
+        └── graficoBurbujas.js  D3.js
 ```
+
+## Arquitectura y flujo de datos
+
+![Flujo de datos del dashboard](docs/diagrama-flujo-datos.png)
+
+Cada módulo cubre una parte de la rúbrica:
+
+| Criterio de la rúbrica | Módulo |
+|---|---|
+| Manejo de datos y actualización | `datos.js` (carga y validación) + `main.js` (botón y temporizador) |
+| Visualización básica (Google Charts) | `graficoColumnas.js` |
+| Visualización multidimensional (D3.js) | `graficoBurbujas.js` |
+| Integración de la interfaz | `index.html` (Bootstrap) + `main.js` (redibuja todo a la vez) |
+
+**Reglas de la separación:**
+- Ningún gráfico lee el JSON por su cuenta. Solo `datos.js` sabe de dónde vienen los datos, y cada vista recibe los registros como parámetro.
+- `config.js` centraliza los colores por producto, así que Google Charts, D3 y las leyendas usan exactamente los mismos.
+
+Los módulos se cargan con `<script type="module" src="js/main.js">`. No necesitan ninguna herramienta de compilación, pero sí el servidor: los módulos ES no funcionan abriendo el HTML con `file://`.
 
 ## Lógica de actualización (resumen para el informe)
 
-- `cargarDatos()` hace `fetch("ventas.json?t=<hora>", { cache: "no-store" })`. El servidor también responde con `Cache-Control: no-store`, así que cada lectura trae el archivo actual y no una copia guardada. Después convierte los campos a número y descarta los registros inválidos.
-- `actualizar()` llama en orden a `dibujarKPIs()`, `dibujarColumnas()` y `dibujarBurbujas()`. La usan:
+- `cargarDatos()` (en `datos.js`) hace `fetch("ventas.json?t=<hora>", { cache: "no-store" })`. El servidor también responde con `Cache-Control: no-store`, así que cada lectura trae el archivo actual y no una copia guardada. Después convierte los campos a número y descarta los registros inválidos.
+- `actualizar()` (en `main.js`) llama en orden a `dibujarKPIs()`, `dibujarColumnas()` y `dibujarBurbujas()`. La usan:
   - la carga inicial (`google.charts.setOnLoadCallback`);
   - el botón «Actualizar»;
   - el temporizador (`setInterval`).
