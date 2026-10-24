@@ -1,4 +1,4 @@
-// Indicadores del último mes comparados con el anterior, como cards de Bootstrap.
+// Indicadores del último mes comparados con el anterior, en una franja con filetes.
 import { numero, moneda } from "./config.js";
 import { listaMeses, listaProductos } from "./datos.js";
 
@@ -12,7 +12,7 @@ export function dibujarKPIs(datos) {
     if (!previo || !anterior) return "";
     const cambio = (actual - anterior) / anterior;
     const clase = cambio >= 0 ? "text-success" : "text-danger";
-    return `<div class="small ${clase}">${cambio >= 0 ? "▲" : "▼"} ${(Math.abs(cambio) * 100).toFixed(1)} % vs ${previo}</div>`;
+    return `<div class="detalle ${clase}">${cambio >= 0 ? "▲" : "▼"} ${(Math.abs(cambio) * 100).toFixed(1)} % vs ${previo}</div>`;
   };
 
   const delMes = datos.filter((d) => d.mes === ultimo);
@@ -21,21 +21,16 @@ export function dibujarKPIs(datos) {
   const tarjetas = [
     { etiqueta: `Unidades · ${ultimo}`, valor: numero.format(total(ultimo, "ventas")), extra: delta(total(ultimo, "ventas"), total(previo, "ventas")) },
     { etiqueta: `Ingresos · ${ultimo}`, valor: moneda.format(total(ultimo, "ingresos")), extra: delta(total(ultimo, "ingresos"), total(previo, "ingresos")) },
-    { etiqueta: "Ingresos acumulados", valor: moneda.format(d3.sum(datos, (d) => d.ingresos)), extra: `<div class="small text-body-secondary">${meses.length} meses · ${listaProductos(datos).length} productos</div>` },
-    { etiqueta: `Líder en ingresos · ${ultimo}`, valor: lider.producto, extra: `<div class="small text-body-secondary">${moneda.format(lider.ingresos)}</div>` },
+    { etiqueta: "Ingresos acumulados", valor: moneda.format(d3.sum(datos, (d) => d.ingresos)), extra: `<div class="detalle text-body-secondary">${meses.length} meses · ${listaProductos(datos).length} productos</div>` },
+    { etiqueta: `Líder en ingresos · ${ultimo}`, valor: lider.producto, extra: `<div class="detalle text-body-secondary">${moneda.format(lider.ingresos)}</div>` },
   ];
 
-  // Cada KPI es una columna del grid de Bootstrap con una card dentro.
   document.getElementById("kpis").innerHTML = tarjetas
     .map((t) => `
-      <div class="col">
-        <div class="card h-100 shadow-sm">
-          <div class="card-body py-3">
-            <div class="small text-body-secondary text-uppercase">${t.etiqueta}</div>
-            <div class="fs-4 fw-bold">${t.valor}</div>
-            ${t.extra}
-          </div>
-        </div>
+      <div class="kpi">
+        <div class="etiqueta">${t.etiqueta}</div>
+        <div class="valor">${t.valor}</div>
+        ${t.extra}
       </div>`)
     .join("");
 }

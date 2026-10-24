@@ -10,16 +10,30 @@ Dashboard interactivo que lee `public/ventas.json` y muestra:
    - Interacción: tooltip al pasar el ratón, y clic en una burbuja o en la leyenda para resaltar un producto.
 4. **Botón «Actualizar»**: vuelve a leer el JSON y redibuja KPIs, Google Charts y D3 **a la vez, sin recargar la página**. Opcionalmente, hay un temporizador automático cada 30 s (casilla «Auto»).
 
+## Diseño visual
+
+El estilo se inspira en un **informe económico impreso**, para no parecerse a la plantilla típica de dashboard:
+
+- **Colores:** fondo color papel y texto negro tinta.
+- **Estructura:** filetes finos en lugar de tarjetas con sombra, y secciones numeradas «01 / 02».
+- **Tipografía:**
+  - Títulos y cifras grandes en serif (*Fraunces*).
+  - Etiquetas y números de ejes en monoespaciada (*IBM Plex Mono*).
+  - Texto en *IBM Plex Sans*.
+- **Paleta por producto:** petróleo, ocre y salvia. Está definida en `config.js` y la usan Google Charts, D3 y las leyendas.
+- **Indicadores de variación:** verde oliva para subidas y terracota para bajadas. El tono cálido se reserva para lo que conviene vigilar.
+
+Todo el tema vive en `styles.css`, que redefine las variables de Bootstrap (`--bs-body-bg`, `--bs-body-color`, etc.).
+
 ## Diseño adaptable (Bootstrap 5)
 
-El layout usa **Bootstrap 5.3** (por CDN). Las clases principales son:
+El layout usa **Bootstrap 5.3** (por CDN) para el grid y los controles:
 
-| Elemento | Clases | Comportamiento |
+| Elemento | Clases / técnica | Comportamiento |
 |---|---|---|
-| Gráficos | `row` > `col-12 col-lg-6` | Lado a lado desde 992 px; apilados en pantallas menores |
-| KPIs | `row row-cols-2 row-cols-lg-4` | 4 por fila en escritorio; 2 por fila en móvil |
-| Tarjetas | `card h-100 shadow-sm` | Misma altura dentro de cada fila |
-| Controles | `btn btn-primary`, `form-select`, `form-check form-switch` | Botón Actualizar, selector de métrica e interruptor de auto-actualización |
+| Gráficos | `row g-4` > `col-12 col-lg-6` | Lado a lado desde 992 px; apilados en pantallas menores |
+| KPIs | CSS Grid propio (`.franja-kpis`) | 4 columnas en escritorio, 2 en tablet y móvil |
+| Controles | `btn`, `form-select`, `form-check form-switch` (con estilo propio) | Botón Actualizar, selector de métrica e interruptor de auto-actualización |
 
 Lo que Bootstrap no resuelve se hace en el propio código:
 
