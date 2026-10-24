@@ -119,10 +119,12 @@ function alternarResaltado(producto) {
   aplicarResaltado();
 }
 
+// El resaltado usa una clase CSS (no el atributo opacity) para que las transiciones
+// de entrada y actualización, que animan ese atributo, no lo deshagan al terminar.
 function aplicarResaltado() {
   const activo = (p) => !productoResaltado || productoResaltado === p;
   gBurbujas.selectAll("circle").classed("atenuada", (d) => !activo(d.producto));
-  gEtiquetas.selectAll("text").attr("opacity", (d) => (activo(d.producto) ? 1 : 0.15));
+  gEtiquetas.selectAll("text").classed("atenuada", (d) => !activo(d.producto));
   d3.select("#leyenda").selectAll("button").classed("activo", (p) => productoResaltado === p);
 }
 

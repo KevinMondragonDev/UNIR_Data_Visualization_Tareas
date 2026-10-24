@@ -131,6 +131,7 @@ body { background: var(--papel); }
 .burbuja { stroke: var(--papel); stroke-width: 2; fill-opacity: 0.92; cursor: pointer; transition: opacity 0.25s; }
 .burbuja.atenuada { opacity: 0.12; }
 .etiqueta-valor { font-family: var(--mono); font-size: 12px; font-weight: 500; fill: var(--tinta); pointer-events: none; text-anchor: middle; }
+.etiqueta-valor.atenuada { opacity: 0.15; }
 
 /* El SVG usa viewBox de 640 px de ancho: en pantallas chicas se reduce a la mitad,
    así que el texto se agranda en unidades del viewBox para seguir siendo legible. */
